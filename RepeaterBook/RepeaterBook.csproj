@@ -2,6 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Rob Chartier</Authors>
+    <Description>A basic .NET Standard 2.x library for Repeater Book Data.</Description>
+    <PackageProjectUrl>https://github.com/nothingmn/repeaterbook</PackageProjectUrl>
+    <PackageTags>repeater, repeater book, ham, amateur radio</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
