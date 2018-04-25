@@ -10,11 +10,11 @@ namespace RepeaterBookConsole
         {
             var manager = new DataManager();
             manager.Initialize();
-            var coordinates = new Coordinates(49.8875989, -119.4910348);
-            var filterByLocation = manager.FilterByLocation(coordinates, 20, UnitOfLength.Kilometers);
+            var coordinates = new Coordinates(49.2633935, -122.9734937);
+            var filterByLocation = manager.FilterByLocation(coordinates, 50, UnitOfLength.Kilometers);
 
-            var exporter = new KMLExport();
-            exporter.ExportFolders(@"C:\Users\rchartier\Desktop\kelowna.kml", filterByLocation);
+            var exporter = new ChirpExporter();
+            exporter.ExportFolders(@"C:\Users\rchartier\Desktop\burnaby.csv", filterByLocation);
 
             Console.WriteLine("Done");
             Console.ReadLine();

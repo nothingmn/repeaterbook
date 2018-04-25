@@ -137,7 +137,7 @@ namespace RepeaterBook.Export
 
             var sb = new StringBuilder();
             sb.Append(
-                "Location,Name,Frequency,Duplex,Offset,Tone,cToneFreq,DtcsCode,DtcsPolarity,Mode,TStep,Skip,Comment\r\n");
+                "Location,Name,Frequency,Duplex,Offset,Tone,fToneFreq,DtcsCode,DtcsPolarity,Mode,TStep,Skip,Comment\r\n");
             foreach (var ce in chirpEntries)
             {
                 var dup = "";
