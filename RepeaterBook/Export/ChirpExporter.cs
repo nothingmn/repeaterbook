@@ -54,41 +54,12 @@ namespace RepeaterBook.Export
                     off = Math.Abs(rx - tx);
                 }
 
-                #region might consider later
-
-                //if (!string.IsNullOrEmpty(o))
-                //{
-                //    if (o.Contains("-"))
-                //    {
-                //        sign = "-";
-                //    }
-                //    else
-                //    {
-                //        sign = "+";
-                //    }
-                //    var basic = o.Trim().Replace(sign, "").Trim();
-                //    var left = basic.Substring(0, o.IndexOf(" ")).Trim();
-                //    var right = basic.Substring(o.IndexOf(" ")).Trim();
-                //    if (!string.IsNullOrEmpty(left))
-                //    {
-                //        if (decimal.TryParse(left, out off))
-                //        {
-                //            if (right.ToLower() == "khz")
-                //            {
-                //                off += 1000;
-                //            }
-                //        }
-                //    }
-                //}
-
-                #endregion might consider later
-
                 var c = new ChirpEntry()
                 {
                     Location = index,
                     Name = entry.Call,
                     Frequency = entry.RX,
-                    Mode = entry.Band,
+                    Mode = entry.Mode,
                     Offset = off,
                     Duplex = d,
                     rToneFreq = entry.CTCSS,
@@ -127,6 +98,8 @@ namespace RepeaterBook.Export
                 {
                     c.Comment = c.Comment + "Features: " + entry.NotesFeatures + ", ";
                 }
+                c.Comment = c.Comment + "Band: " + entry.Band.Abbreviation + ", ";
+                c.Comment = c.Comment + "WaveLength: " + entry.WaveLength + "meters, ";
                 c.Comment = c.Comment + " (" + key + ")";
 
                 c.Comment = c.Comment.Trim();
@@ -153,7 +126,6 @@ namespace RepeaterBook.Export
                 var line =
                     $"{ce.Location},{ce.Name},{ce.Frequency.ToString("###.000000")},{dup},{ce.Offset.ToString("##0.000000")},{tone},{rTone},023,NN,{ce.Mode},5.00,,\"{ce.Comment}\"\r\n";
                 sb.Append(line);
-                Console.WriteLine(line);
             }
             System.IO.File.WriteAllText(filename, sb.ToString(), Encoding.ASCII);
         }
@@ -195,7 +167,7 @@ namespace RepeaterBook.Export
         public decimal cToneFreq { get; set; }
         public decimal DtcsCode { get; set; }
         public DtsPolarity DtcsPolarity { get; set; }
-        public Band Mode { get; set; }
+        public Mode Mode { get; set; }
         public decimal TStep { get; set; }
         public bool Skip { get; set; }
         public string Comment { get; set; }

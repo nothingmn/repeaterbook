@@ -21,6 +21,7 @@ namespace RepeaterBook
                             where m.Contains("repeaterbookworld")
                             select m)?.FirstOrDefault();
 
+            var bandManager = new BandManager();
             using (var stm = asm.GetManifestResourceStream(resource))
             {
                 byte[] buffer = new byte[stm.Length];
@@ -29,6 +30,9 @@ namespace RepeaterBook
                 foreach (var entry in RepeaterBookData?.Entries)
                 {
                     entry.Coordinates = new Coordinates(entry.Lat, entry.Lng);
+                    var hz = ((double)entry.TX) * 1000 * 1000;
+                    entry.Band = bandManager.BandForFrequency(hz);
+                    entry.WaveLength = bandManager.WaveLengthForFrequencyInMeters(hz);
                 }
             }
         }

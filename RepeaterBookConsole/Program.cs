@@ -10,11 +10,14 @@ namespace RepeaterBookConsole
         {
             var manager = new DataManager();
             manager.Initialize();
-            var coordinates = new Coordinates(49.2633935, -122.9734937);
-            var filterByLocation = manager.FilterByLocation(coordinates, 50, UnitOfLength.Kilometers);
+            var coordinates = new Coordinates(53.582710, -123.407596);
+            var filterByLocation = manager.FilterByLocation(coordinates, 100, UnitOfLength.Kilometers);
 
-            var exporter = new ChirpExporter();
-            exporter.ExportFolders(@"C:\Users\rchartier\Desktop\burnaby.csv", filterByLocation);
+            var chirp = new ChirpExporter();
+            chirp.ExportFolders(@"C:\Users\rchartier\Desktop\fingerlake.csv", filterByLocation);
+
+            var kml = new KMLExporter();
+            kml.ExportFolders(@"C:\Users\rchartier\Desktop\fingerlake.kml", filterByLocation);
 
             Console.WriteLine("Done");
             Console.ReadLine();
