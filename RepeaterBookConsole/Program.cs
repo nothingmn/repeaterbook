@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using RepeaterBook;
 using RepeaterBook.Export;
@@ -15,14 +16,16 @@ namespace RepeaterBookConsole
 
             if (args != null && args.Any() && args[0] == "custom")
             {
-                var coordinates = new Coordinates(53.582710, -123.407596);
-                var filterByLocation = DataManager.FilterByLocation(coordinates, 100, UnitOfLength.Kilometers);
+                //var coordinates = new Coordinates(53.582710, -123.407596);
+                //var filterByLocation = DataManager.FilterByLocation(coordinates, 100, UnitOfLength.Kilometers);
 
-                var chirp = new ChirpExporter();
-                chirp.ExportFolders(@"C:\Users\rchartier\Desktop\fingerlake.csv", filterByLocation);
+                var filterByLocation = DataManager.FindAll(entry => entry.Province.Equals("BC", StringComparison.InvariantCultureIgnoreCase) || entry.Province.Equals("AB", StringComparison.InvariantCultureIgnoreCase));
 
-                var kml = new KMLExporter();
-                kml.ExportFolders(@"C:\Users\rchartier\Desktop\fingerlake.kml", filterByLocation);
+                ExportCustomCSV(filterByLocation);
+
+                ExportChirp(filterByLocation);
+
+                ExportKML(filterByLocation);
 
                 Console.WriteLine("Done");
                 Console.ReadLine();
@@ -31,6 +34,28 @@ namespace RepeaterBookConsole
             {
                 ExportByLocation();
             }
+        }
+
+        private static void ExportKML(IEnumerable<Entry> filterByLocation)
+        {
+            var kml = new KMLExporter();
+            kml.ExportFolders(@"C:\Users\rchartier\Desktop\exported_kml.kml", filterByLocation);
+        }
+
+        private static void ExportChirp(IEnumerable<Entry> filterByLocation)
+        {
+            var chirp = new ChirpExporter();
+            chirp.ExportFolders(@"C:\Users\rchartier\Desktop\exported_chrip.csv", filterByLocation);
+        }
+
+        private static void ExportCustomCSV(IEnumerable<Entry> entries)
+        {
+            var customCsv = new CustomCSV()
+            {
+                Header = () => "Name,Frequency\r\n",
+                Body = entry => $"{entry.Call},{entry.TX}\r\n",
+            };
+            customCsv.Export(@"C:\Users\rchartier\Desktop\exported_custom.csv", entries);
         }
 
         private static double GetDoubleFromUser(string title)

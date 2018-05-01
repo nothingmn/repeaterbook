@@ -98,8 +98,8 @@ namespace RepeaterBook.Export
                 {
                     c.Comment = c.Comment + "Features: " + entry.NotesFeatures + ", ";
                 }
-                c.Comment = c.Comment + "Band: " + entry.Band.Abbreviation + ", ";
-                c.Comment = c.Comment + "WaveLength: " + entry.WaveLength + "meters, ";
+                c.Comment = c.Comment + "Band: " + entry?.Band?.Abbreviation + ", ";
+                c.Comment = c.Comment + "WaveLength: " + entry?.WaveLength.ToString("###.##") + " meters, ";
                 c.Comment = c.Comment + " (" + key + ")";
 
                 c.Comment = c.Comment.Trim();
