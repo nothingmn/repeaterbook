@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RepeaterBook.Export
 {
-    public class BasicCSV : IExport
+    public class CustomCSV : IExport
     {
         public Func<string> Header { get; set; }
         public Func<Entry, string> Body { get; set; }

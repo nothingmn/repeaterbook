@@ -16,16 +16,20 @@ namespace RepeaterBookConsole
 
             if (args != null && args.Any() && args[0] == "custom")
             {
-                //var coordinates = new Coordinates(53.582710, -123.407596);
-                //var filterByLocation = DataManager.FilterByLocation(coordinates, 100, UnitOfLength.Kilometers);
+                var coordinates = new Coordinates(49.2634752, -122.9738316);
+                var filterByLocation = DataManager.FilterByLocation(coordinates, 50, UnitOfLength.Kilometers);
 
-                var filterByLocation = DataManager.FindAll(entry => entry.Province.Equals("BC", StringComparison.InvariantCultureIgnoreCase) || entry.Province.Equals("AB", StringComparison.InvariantCultureIgnoreCase));
+                //var filterByLocation = DataManager.FindAll(entry => entry.Province.Equals("BC", StringComparison.InvariantCultureIgnoreCase) || entry.Province.Equals("AB", StringComparison.InvariantCultureIgnoreCase));
+                var kml = new KMLExporter();
+                kml.ExportFolders(@"C:\Users\rchartier\Desktop\exported_kml.kml", filterByLocation);
+                var chrip = new ChirpExporter();
+                chrip.ExportFolders(@"C:\Users\rchartier\Desktop\exported_chirp.csv", filterByLocation);
 
-                ExportCustomCSV(filterByLocation);
+                //ExportCustomCSV(filterByLocation);
 
-                ExportChirp(filterByLocation);
+                //ExportChirp(filterByLocation);
 
-                ExportKML(filterByLocation);
+                //ExportKML(filterByLocation);
 
                 Console.WriteLine("Done");
                 Console.ReadLine();

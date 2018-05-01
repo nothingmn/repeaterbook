@@ -1,10 +1,12 @@
-﻿namespace RepeaterBook
+﻿using RepeaterBook.CallSigns;
+
+namespace RepeaterBook
 {
     public class Entry
     {
+        public AmateurRadioCallSign CallSign { get; set; }
         public Band Band { get; set; }
         public double WaveLength { get; set; }
-
         public int Id { get; set; }
         public string Call { get; set; }
         public Mode Mode { get; set; }
