@@ -15,7 +15,7 @@ namespace RepeaterBook
     {
         private RepeaterBookData RepeaterBookData;
 
-        private AmateurRadioCallSignExport CanadianCallSigns;
+        public AmateurRadioCallSignExport CanadianCallSigns { get; set; }
 
         public void Initialize()
         {

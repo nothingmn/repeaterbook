@@ -17,15 +17,15 @@ namespace RepeaterBookConsole
             if (args != null && args.Any() && args[0] == "custom")
             {
                 var coordinates = new Coordinates(49.2634752, -122.9738316);
-                var filterByLocation = DataManager.FilterByLocation(coordinates, 50, UnitOfLength.Kilometers);
+                var filterByCoords = DataManager.FilterByLocation(coordinates, 50, UnitOfLength.Kilometers);
 
-                //var filterByLocation = DataManager.FindAll(entry => entry.Province.Equals("BC", StringComparison.InvariantCultureIgnoreCase) || entry.Province.Equals("AB", StringComparison.InvariantCultureIgnoreCase));
                 var kml = new KMLExporter();
-                kml.ExportFolders(@"C:\Users\rchartier\Desktop\exported_kml.kml", filterByLocation);
+                kml.ExportFolders(@"C:\Users\rchartier\Desktop\exported_kml.kml", filterByCoords);
                 var chrip = new ChirpExporter();
-                chrip.ExportFolders(@"C:\Users\rchartier\Desktop\exported_chirp.csv", filterByLocation);
+                chrip.ExportFolders(@"C:\Users\rchartier\Desktop\exported_chirp.csv", filterByCoords);
 
-                //ExportCustomCSV(filterByLocation);
+                var filterByLocation = DataManager.FindAll(entry => entry.Province.Equals("BC", StringComparison.InvariantCultureIgnoreCase) || entry.Province.Equals("AB", StringComparison.InvariantCultureIgnoreCase));
+                ExportCustomCSV(filterByLocation);
 
                 //ExportChirp(filterByLocation);
 
@@ -56,8 +56,12 @@ namespace RepeaterBookConsole
         {
             var customCsv = new CustomCSV()
             {
-                Header = () => "Name,Frequency\r\n",
-                Body = entry => $"{entry.Call},{entry.TX}\r\n",
+                Header = () => "Name,Frequency,OwnerName\r\n",
+                Body = entry =>
+                {
+                    var name = $"{entry.CallSign?.GivenNames} {entry.CallSign?.SurName}".Trim();
+                    return $"{entry.Call},{entry.TX},{name}\r\n";
+                },
             };
             customCsv.Export(@"C:\Users\rchartier\Desktop\exported_custom.csv", entries);
         }
