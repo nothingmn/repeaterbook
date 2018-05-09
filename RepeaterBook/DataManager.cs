@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Resources;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
-using RepeaterBook.CallSigns;
 
 namespace RepeaterBook
 {
@@ -15,22 +9,11 @@ namespace RepeaterBook
     {
         private RepeaterBookData RepeaterBookData;
 
-        public AmateurRadioCallSignExport CanadianCallSigns { get; set; }
 
         public void Initialize()
         {
             var asm = typeof(DataManager).Assembly;
-
-            var resource1 = (from m in asm.GetManifestResourceNames()
-                             where m.Contains("callsigns.canada")
-                             select m)?.FirstOrDefault();
-
-            using (var stm = asm.GetManifestResourceStream(resource1))
-            {
-                byte[] buffer = new byte[stm.Length];
-                stm.Read(buffer, 0, buffer.Length);
-                CanadianCallSigns = JsonConvert.DeserializeObject<AmateurRadioCallSignExport>(System.Text.Encoding.UTF8.GetString(buffer));
-            }
+            
 
             var resource = (from m in asm.GetManifestResourceNames()
                             where m.Contains("repeaterbookworld")
@@ -48,11 +31,7 @@ namespace RepeaterBook
                     var hz = ((double)entry.TX) * 1000 * 1000;
                     entry.Band = bandManager.BandForFrequency(hz);
                     entry.WaveLength = bandManager.WaveLengthForFrequencyInMeters(hz);
-
-                    if (!string.IsNullOrEmpty(entry.Call) && CanadianCallSigns.CallSigns.ContainsKey(entry.Call))
-                    {
-                        entry.CallSign = CanadianCallSigns.CallSigns[entry.Call];
-                    }
+                    
                 }
             }
         }

@@ -51,23 +51,7 @@ namespace RepeaterBook.Export
                             }
                         }
 
-                        if (item.CallSign != null)
-                        {
-                            desc = desc + "Call Sign Information:\n";
-                            desc = desc + "Name:" + item.CallSign.GivenNames + " " + item.CallSign.SurName + "\n";
-                            desc = desc + "Qualifications:" + item.CallSign.Qualifications + "\n";
-                            desc = desc + "Address:" + item.CallSign.Address + "\n";
-                            desc = desc + "City:" + item.CallSign.City + "\n";
-                            desc = desc + "Province:" + item.CallSign.Province + "\n";
-                            desc = desc + "Postal Code:" + item.CallSign.PostalCode + "\n";
-                            desc = desc + "Club Information:\n";
-                            desc = desc + "Name:" + item.CallSign.ClubName + " " + item.CallSign.SecondClubName + "\n";
-                            desc = desc + "Address:" + item.CallSign.ClubAddress + "\n";
-                            desc = desc + "City:" + item.CallSign.ClubCity + "\n";
-                            desc = desc + "Province:" + item.CallSign.ClubProvince + "\n";
-                            desc = desc + "Postal Code:" + item.CallSign.ClubPostalCode + "\n";
-                        }
-
+                        
                         txt = txt.Replace("{description}", desc);
                         txt = txt.Replace("{lat}", item.Lat.ToString());
                         txt = txt.Replace("{lng}", item.Lng.ToString());

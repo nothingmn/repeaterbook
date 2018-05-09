@@ -102,23 +102,6 @@ namespace RepeaterBook.Export
                 c.Comment = c.Comment + "WaveLength: " + entry?.WaveLength.ToString("###.##") + " meters, ";
                 c.Comment = c.Comment + " (" + key + ") ";
 
-                if (entry?.CallSign != null)
-                {
-                    c.Comment = c.Comment + "Call Sign Information: ";
-                    c.Comment = c.Comment + "Name:" + entry.CallSign.GivenNames + " " + entry.CallSign.SurName + " ";
-                    c.Comment = c.Comment + "Qualifications:" + entry.CallSign.Qualifications + " ";
-                    c.Comment = c.Comment + "Address:" + entry.CallSign.Address + " ";
-                    c.Comment = c.Comment + "City:" + entry.CallSign.City + " ";
-                    c.Comment = c.Comment + "Province:" + entry.CallSign.Province + " ";
-                    c.Comment = c.Comment + "Postal Code:" + entry.CallSign.PostalCode + " ";
-                    c.Comment = c.Comment + "Club Information: ";
-                    c.Comment = c.Comment + "Name:" + entry.CallSign.ClubName + " " + entry.CallSign.SecondClubName + " ";
-                    c.Comment = c.Comment + "Address:" + entry.CallSign.ClubAddress + " ";
-                    c.Comment = c.Comment + "City:" + entry.CallSign.ClubCity + " ";
-                    c.Comment = c.Comment + "Province:" + entry.CallSign.ClubProvince + " ";
-                    c.Comment = c.Comment + "Postal Code:" + entry.CallSign.ClubPostalCode + " ";
-                }
-
                 c.Comment = c.Comment.Trim();
 
                 chirpEntries.Add(c);

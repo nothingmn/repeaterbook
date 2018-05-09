@@ -56,11 +56,10 @@ namespace RepeaterBookConsole
         {
             var customCsv = new CustomCSV()
             {
-                Header = () => "Name,Frequency,OwnerName\r\n",
+                Header = () => "Name,Frequency\r\n",
                 Body = entry =>
                 {
-                    var name = $"{entry.CallSign?.GivenNames} {entry.CallSign?.SurName}".Trim();
-                    return $"{entry.Call},{entry.TX},{name}\r\n";
+                    return $"{entry.Call},{entry.TX}\r\n";
                 },
             };
             customCsv.Export(@"C:\Users\rchartier\Desktop\exported_custom.csv", entries);

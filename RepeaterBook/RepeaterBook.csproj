@@ -9,12 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="callsigns.canada.json" />
     <None Remove="repeaterbookworld.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="callsigns.canada.json" />
     <EmbeddedResource Include="repeaterbookworld.json" />
   </ItemGroup>
 
