@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using RepeaterBook;
 using RepeaterBook.Export;
+using Terminal.Gui;
 
 namespace RepeaterBookConsole
 {
@@ -10,33 +11,42 @@ namespace RepeaterBookConsole
     {
         private static DataManager DataManager = new DataManager();
 
-        private static void Main(string[] args)
+        private static int Main(string[] args)
         {
             DataManager.Initialize();
 
-            if (args != null && args.Any() && args[0] == "custom")
+            var gui = new RepeaterGui();
+            var final = gui.Run();
+            return final;
+
+            if (false)
             {
-                var coordinates = new Coordinates(49.2634752, -122.9738316);
-                var filterByCoords = DataManager.FilterByLocation(coordinates, 50, UnitOfLength.Kilometers);
+                if (args != null && args.Any() && args[0] == "custom")
+                {
+                    var coordinates = new Coordinates(49.2634752, -122.9738316);
+                    var filterByCoords = DataManager.FilterByLocation(coordinates, 50, UnitOfLength.Kilometers);
 
-                var kml = new KMLExporter();
-                kml.ExportFolders(@"C:\Users\rchartier\Desktop\exported_kml.kml", filterByCoords);
-                var chrip = new ChirpExporter();
-                chrip.ExportFolders(@"C:\Users\rchartier\Desktop\exported_chirp.csv", filterByCoords);
+                    var kml = new KMLExporter();
+                    kml.ExportFolders(@"C:\Users\rchartier\Desktop\exported_kml.kml", filterByCoords);
+                    var chrip = new ChirpExporter();
+                    chrip.ExportFolders(@"C:\Users\rchartier\Desktop\exported_chirp.csv", filterByCoords);
 
-                var filterByLocation = DataManager.FindAll(entry => entry.Province.Equals("BC", StringComparison.InvariantCultureIgnoreCase) || entry.Province.Equals("AB", StringComparison.InvariantCultureIgnoreCase));
-                ExportCustomCSV(filterByLocation);
+                    var filterByLocation = DataManager.FindAll(entry =>
+                        entry.Province.Equals("BC", StringComparison.InvariantCultureIgnoreCase) ||
+                        entry.Province.Equals("AB", StringComparison.InvariantCultureIgnoreCase));
+                    ExportCustomCSV(filterByLocation);
 
-                //ExportChirp(filterByLocation);
+                    //ExportChirp(filterByLocation);
 
-                //ExportKML(filterByLocation);
+                    //ExportKML(filterByLocation);
 
-                Console.WriteLine("Done");
-                Console.ReadLine();
-            }
-            else
-            {
-                ExportByLocation();
+                    Console.WriteLine("Done");
+                    Console.ReadLine();
+                }
+                else
+                {
+                    ExportByLocation();
+                }
             }
         }
 
