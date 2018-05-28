@@ -15,6 +15,8 @@ namespace RepeaterBookConsole
         {
             DataManager.Initialize();
 
+            ExportByLocation();
+
             var gui = new RepeaterGui();
             var final = gui.Run();
             return final;
