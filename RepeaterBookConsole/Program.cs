@@ -14,11 +14,12 @@ namespace RepeaterBookConsole
         {
             DataManager.Initialize();
 
+            var user = DataManager.FindAll(entry => entry.Call.Equals("VE7NKL") || entry.Call.Equals("VE7 NKL"));
+
             if (args != null && args.Any() && args[0] == "custom")
             {
-                var coordinates = new Coordinates(49.2634752, -122.9738316);
-                var filterByCoords = DataManager.FilterByLocation(coordinates, 50, UnitOfLength.Kilometers);
-
+                var coordinates = new Coordinates(53.169060, -121.04757);
+                var filterByCoords = DataManager.FilterByLocation(coordinates, 100, UnitOfLength.Kilometers);
                 var kml = new KMLExporter();
                 kml.ExportFolders(@"C:\Users\rchartier\Desktop\exported_kml.kml", filterByCoords);
                 var chrip = new ChirpExporter();
